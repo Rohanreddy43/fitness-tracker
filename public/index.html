@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>90-Day Fitness Transformation Tracker</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ===== AUTH PAGE ===== -->
+  <div id="auth-page" class="page active">
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <div class="auth-logo">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+              <rect width="48" height="48" rx="14" fill="url(#grad)"/>
+              <path d="M14 34V20l10-8 10 8v14H28V26h-8v8H14z" fill="white"/>
+              <defs><linearGradient id="grad" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#E91E63"/></linearGradient></defs>
+            </svg>
+          </div>
+          <h1>Fitness Tracker</h1>
+          <p>90-Day Transformation Journey</p>
+        </div>
+
+        <div id="login-form" class="auth-form active">
+          <h2>Welcome Back</h2>
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" placeholder="Enter your email" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password">
+          </div>
+          <div id="login-error" class="auth-error"></div>
+          <button id="login-btn" class="btn btn-primary">Sign In</button>
+          <p class="auth-switch">Don't have an account? <a href="#" onclick="showRegister()">Create one</a></p>
+        </div>
+
+        <div id="register-form" class="auth-form">
+          <h2>Create Account</h2>
+          <div class="form-group">
+            <label for="register-name">Full Name</label>
+            <input type="text" id="register-name" placeholder="Enter your name" autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="register-email">Email</label>
+            <input type="email" id="register-email" placeholder="Enter your email" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="register-password">Password</label>
+            <input type="password" id="register-password" placeholder="Min 6 characters" autocomplete="new-password">
+          </div>
+          <div id="register-error" class="auth-error"></div>
+          <button id="register-btn" class="btn btn-primary">Create Account</button>
+          <p class="auth-switch">Already have an account? <a href="#" onclick="showLogin()">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== APP SHELL ===== -->
+  <div id="app-page" class="page">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <rect width="48" height="48" rx="14" fill="url(#grad2)"/>
+            <path d="M14 34V20l10-8 10 8v14H28V26h-8v8H14z" fill="white"/>
+            <defs><linearGradient id="grad2" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#E91E63"/></linearGradient></defs>
+          </svg>
+          <span class="sidebar-brand">FitTracker</span>
+        </div>
+        <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+      </div>
+      <div class="sidebar-user">
+        <div class="user-avatar" id="user-avatar">U</div>
+        <div class="user-info">
+          <span class="user-name" id="sidebar-user-name">User</span>
+          <span class="user-email" id="sidebar-user-email">user@email.com</span>
+        </div>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="#" class="nav-item active" data-page="dashboard" onclick="navigateTo('dashboard')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+          Dashboard
+        </a></li>
+        <li><a href="#" class="nav-item" data-page="workout" onclick="navigateTo('workout')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 20h12M6 4v16M18 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/></svg>
+          Weekly Workout
+        </a></li>
+        <li><a href="#" class="nav-item" data-page="diet" onclick="navigateTo('diet')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 12h14M9 4v16M4 12V8a4 4 0 014-4h1a4 4 0 014 4v4"/></svg>
+          Diet Plan
+        </a></li>
+        <li><a href="#" class="nav-item" data-page="weight" onclick="navigateTo('weight')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 9v6M9 12h6"/></svg>
+          Weight & Waist
+        </a></li>
+        <li><a href="#" class="nav-item" data-page="progress" onclick="navigateTo('progress')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          Progress
+        </a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <button class="btn btn-logout" onclick="logout()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+      <!-- DASHBOARD -->
+      <div id="page-dashboard" class="page-content active">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <p id="dashboard-greeting">Welcome back! Let's crush today.</p>
+        </div>
+        <div class="stats-grid" id="dashboard-stats">
+          <div class="stat-card"><div class="stat-icon stat-purple"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div><span class="stat-label">Weeks Tracked</span><span class="stat-value" id="stat-weeks">0</span></div></div>
+          <div class="stat-card"><div class="stat-icon stat-green"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4h12M6 20h12M6 4v16M18 4v16M4 8h4M4 16h4M16 8h4M16 16h4"/></svg></div><div><span class="stat-label">Workouts Done</span><span class="stat-value" id="stat-workouts">0</span></div></div>
+          <div class="stat-card"><div class="stat-icon stat-blue"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1M2 12h14M9 4v16M4 12V8a4 4 0 014-4h1a4 4 0 014 4v4"/></svg></div><div><span class="stat-label">Diet Followed</span><span class="stat-value" id="stat-diet">0</span></div></div>
+          <div class="stat-card"><div class="stat-icon stat-orange"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/></svg></div><div><span class="stat-label">Protein Days</span><span class="stat-value" id="stat-protein">0</span></div></div>
+        </div>
+        <div class="dashboard-grid">
+          <div class="card">
+            <div class="card-header"><h3>This Week's Workouts</h3></div>
+            <div class="card-body" id="dashboard-weekly">
+              <p class="text-muted">Loading...</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Today's Focus</h3><span class="badge badge-primary" id="today-badge">Day 1</span></div>
+            <div class="card-body" id="dashboard-today">
+              <p class="text-muted">Loading today's info...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WORKOUT PAGE -->
+      <div id="page-workout" class="page-content">
+        <div class="page-header">
+          <h1>Weekly Workout Tracker</h1>
+          <div class="week-navigation">
+            <button class="btn btn-icon" onclick="changeWeek(-1)">‹</button>
+            <span id="week-display">Week 1</span>
+            <button class="btn btn-icon" onclick="changeWeek(1)">›</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body" id="workout-content">
+            <p class="text-muted">Loading...</p>
+          </div>
+        </div>
+        <div class="weekly-workout-plan">
+          <h3>📋 Detailed Weekly Workout Plan</h3>
+          <p style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Click on any day to expand/collapse the full exercise breakdown</p>
+          <div class="workout-plan-accordion" id="workout-plan-accordion">
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Monday')">
+                <span class="day-badge day-mon">MON</span>
+                <span class="plan-title">Push Day — Chest, Shoulders, Triceps</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Monday">
+                <div class="plan-session">
+                  <h4>☀️ Morning (Fat Burn)</h4>
+                  <ul>
+                    <li>Fast walking — 30 mins</li>
+                    <li>Plank — 3×45 sec</li>
+                    <li>Mountain climbers — 3×20</li>
+                    <li>Stretching — 10 mins</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening (Chest + Shoulders + Triceps)</h4>
+                  <div class="plan-muscle-group"><strong>Chest</strong></div>
+                  <ul>
+                    <li>Bench Press — 4×8</li>
+                    <li>Incline DB Press — 4×10</li>
+                    <li>DB Flyes — 3×12</li>
+                  </ul>
+                  <div class="plan-muscle-group"><strong>Shoulders</strong></div>
+                  <ul>
+                    <li>Shoulder Press — 4×10</li>
+                    <li>Lateral Raises — 4×15</li>
+                  </ul>
+                  <div class="plan-muscle-group"><strong>Triceps</strong></div>
+                  <ul>
+                    <li>Overhead Extension — 3×12</li>
+                    <li>Bench Dips — 3×12</li>
+                  </ul>
+                  <div class="plan-finish">Finish: 10 mins incline walking</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Tuesday')">
+                <span class="day-badge day-tue">TUE</span>
+                <span class="plan-title">Pull Day — Back, Biceps</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Tuesday">
+                <div class="plan-session">
+                  <h4>☀️ Morning</h4>
+                  <ul>
+                    <li>Brisk walk — 35 mins</li>
+                    <li>Hanging knee raises — 3×15</li>
+                    <li>Russian twists — 3×20</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening (Back + Biceps)</h4>
+                  <div class="plan-muscle-group"><strong>Back</strong></div>
+                  <ul>
+                    <li>Deadlift — 4×6</li>
+                    <li>Bent-over Rows — 4×10</li>
+                    <li>One-arm DB Rows — 3×12</li>
+                    <li>Lat Pulldown/Pullups — 4×10</li>
+                  </ul>
+                  <div class="plan-muscle-group"><strong>Rear Delts</strong></div>
+                  <ul>
+                    <li>Face Pulls — 3×15</li>
+                  </ul>
+                  <div class="plan-muscle-group"><strong>Biceps</strong></div>
+                  <ul>
+                    <li>Barbell Curl — 3×12</li>
+                    <li>Hammer Curl — 3×12</li>
+                  </ul>
+                  <div class="plan-finish">Finish: 10 mins cycling/walking</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Wednesday')">
+                <span class="day-badge day-wed">WED</span>
+                <span class="plan-title">Conditioning + Core</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Wednesday">
+                <div class="plan-session">
+                  <h4>☀️ Morning</h4>
+                  <ul>
+                    <li>Incline walk — 40 mins</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening — Circuit (4 rounds)</h4>
+                  <ul>
+                    <li>Jump rope — 1 min</li>
+                    <li>Pushups — 15</li>
+                    <li>Squats — 20</li>
+                    <li>Mountain climbers — 20</li>
+                    <li>Burpees — 10</li>
+                    <li>Plank — 45 sec</li>
+                  </ul>
+                  <div class="plan-finish">Rest 1 min between rounds.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Thursday')">
+                <span class="day-badge day-thu">THU</span>
+                <span class="plan-title">Leg Day</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Thursday">
+                <div class="plan-session">
+                  <h4>☀️ Morning</h4>
+                  <ul>
+                    <li>Light walking — 30 mins</li>
+                    <li>Hip mobility</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening (Leg Day)</h4>
+                  <div class="plan-muscle-group"><strong>Quads/Glutes</strong></div>
+                  <ul>
+                    <li>Squats — 4×8</li>
+                    <li>Leg Press — 4×12</li>
+                    <li>Walking Lunges — 3×12 each leg</li>
+                  </ul>
+                  <div class="plan-muscle-group"><strong>Hamstrings</strong></div>
+                  <ul>
+                    <li>Romanian Deadlift — 4×10</li>
+                  </ul>
+                  <div class="plan-muscle-group"><strong>Calves</strong></div>
+                  <ul>
+                    <li>Standing Calf Raises — 4×15</li>
+                  </ul>
+                  <div class="plan-finish">Finish: Slow treadmill walk — 10 mins</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Friday')">
+                <span class="day-badge day-fri">FRI</span>
+                <span class="plan-title">Upper Body Power</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Friday">
+                <div class="plan-session">
+                  <h4>☀️ Morning</h4>
+                  <ul>
+                    <li>Fast walk — 30 mins</li>
+                    <li>Core work</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening</h4>
+                  <ul>
+                    <li>Bench Press — 5×5</li>
+                    <li>Rows — 5×5</li>
+                    <li>Overhead Press — 4×6</li>
+                    <li>Pullups — 4 sets</li>
+                    <li>Dips — 3 sets</li>
+                    <li>Shrugs — 3×15</li>
+                  </ul>
+                  <div class="plan-finish">Finish: 15 mins cardio</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Saturday')">
+                <span class="day-badge day-sat">SAT</span>
+                <span class="plan-title">Athletic Fat Loss Day</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Saturday">
+                <div class="plan-session">
+                  <h4>☀️ Morning</h4>
+                  <ul>
+                    <li>Walking or cycling — 45 mins</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening (HIIT + Functional) — 5 rounds</h4>
+                  <ul>
+                    <li>Kettlebell swings — 15</li>
+                    <li>Pushups — 15</li>
+                    <li>Jump squats — 15</li>
+                    <li>Battle rope/jumping rope — 1 min</li>
+                    <li>Farmer carry — 30 sec</li>
+                  </ul>
+                  <div class="plan-finish">Rest 90 sec between rounds.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="workout-plan-card">
+              <button class="workout-plan-toggle" onclick="toggleWorkoutPlan('Sunday')">
+                <span class="day-badge day-sun">SUN</span>
+                <span class="plan-title">Recovery Day</span>
+                <span class="plan-arrow">▶</span>
+              </button>
+              <div class="workout-plan-details" id="plan-Sunday">
+                <div class="plan-session">
+                  <h4>☀️ Morning</h4>
+                  <ul>
+                    <li>Light walking — 30 mins</li>
+                  </ul>
+                </div>
+                <div class="plan-session">
+                  <h4>🌙 Evening</h4>
+                  <ul>
+                    <li>Full body stretching</li>
+                    <li>Foam rolling (if available)</li>
+                    <li>Mobility work</li>
+                  </ul>
+                  <div class="plan-finish">No heavy lifting.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIET PAGE -->
+      <div id="page-diet" class="page-content">
+        <div class="page-header">
+          <h1>Diet Plan</h1>
+          <p>Daily nutrition targets & meal breakdown</p>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Daily Macros Summary</h3></div>
+          <div class="card-body">
+            <div class="macros-summary" id="macros-summary">
+              <div class="macro-item"><span class="macro-label">Protein</span><span class="macro-value" id="macro-protein">0g</span></div>
+              <div class="macro-item"><span class="macro-label">Carbs</span><span class="macro-value" id="macro-carbs">0g</span></div>
+              <div class="macro-item"><span class="macro-label">Calories</span><span class="macro-value" id="macro-calories">0</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="meal-grid" id="meal-grid">
+          <p class="text-muted">Loading meals...</p>
+        </div>
+      </div>
+
+      <!-- WEIGHT PAGE -->
+      <div id="page-weight" class="page-content">
+        <div class="page-header">
+          <h1>Weight & Waist Tracker</h1>
+          <p>Track your weekly measurements</p>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Add Weekly Measurement</h3></div>
+          <div class="card-body">
+            <div class="weight-form">
+              <div class="form-group">
+                <label for="weight-week">Week</label>
+                <input type="number" id="weight-week" min="1" max="12" value="1">
+              </div>
+              <div class="form-group">
+                <label for="weight-kg">Weight (kg)</label>
+                <input type="number" id="weight-kg" step="0.1" placeholder="e.g. 75">
+              </div>
+              <div class="form-group">
+                <label for="waist-cm">Waist Size (cm)</label>
+                <input type="number" id="waist-cm" step="0.1" placeholder="e.g. 85">
+              </div>
+              <div class="form-group">
+                <label for="weight-notes">Notes</label>
+                <input type="text" id="weight-notes" placeholder="Optional notes">
+              </div>
+              <button class="btn btn-primary" onclick="saveWeight()">Save Measurement</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Measurement History</h3></div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="data-table" id="weight-table">
+                <thead>
+                  <tr><th>Week</th><th>Weight (kg)</th><th>Waist (cm)</th><th>Notes</th></tr>
+                </thead>
+                <tbody id="weight-table-body">
+                  <tr><td colspan="4" class="text-muted">No data yet</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRESS PAGE -->
+      <div id="page-progress" class="page-content">
+        <div class="page-header">
+          <h1>Progress & Stats</h1>
+          <p>Your 90-day transformation journey at a glance</p>
+        </div>
+        <div class="progress-grid">
+          <div class="card">
+            <div class="card-header"><h3>Workout Consistency</h3></div>
+            <div class="card-body" id="workout-chart">
+              <p class="text-muted">Loading chart...</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><h3>Diet Adherence</h3></div>
+            <div class="card-body" id="diet-chart">
+              <p class="text-muted">Loading chart...</p>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h3>Weekly Overview</h3></div>
+          <div class="card-body">
+            <div class="table-container">
+              <table class="data-table" id="progress-table">
+                <thead>
+                  <tr><th>Week</th><th>Workouts</th><th>Diet</th><th>Protein</th><th>Score</th></tr>
+                </thead>
+                <tbody id="progress-table-body">
+                  <tr><td colspan="5" class="text-muted">No data yet</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
